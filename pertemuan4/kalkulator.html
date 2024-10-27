@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+    <h1>Kalkulator</h1>
+
+    <div class="input-group mb-3">
+        <input type="number" id="angka1" class="form-control" placeholder="Masukkan angka 1"
+            aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <span class="input-group-text" id="basic-addon2">Angka 1</span>
+    </div>
+
+    <div class="input-group mb-3">
+        <input type="number" id="angka2" class="form-control" placeholder="Masukkan angka 2"
+            aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <span class="input-group-text" id="basic-addon2">Angka 2</span>
+    </div>
+
+    <button id="hitung" class="btn btn-primary"> Hitung mi</button>
+
+    <!-- <button id="tambah" class="btn btn-success"> Tambah +</button>
+
+    <button id="kurang" class="btn btn-success"> Kurang -</button>
+
+    <button id="kali" class="btn btn-success"> Kali *</button>
+
+    <button id="bagi" class="btn btn-success"> Bagi /</button> -->
+
+    <button id="clear" class="btn btn-warning"> Clear</button>
+
+    <h4>Hasil tambah : <span id="hasilTambah">...</span> </h4>
+    <h4>Hasil kurang : <span id="hasilKurang">...</span> </h4>
+    <h4>Hasil bagi : <span id="hasilBagi">...</span> </h4>
+    <h4>Hasil kali : <span id="hasilKali">...</span> </h4>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <script>
+
+        let angka1 = document.getElementById('angka1')
+
+        let angka2 = document.getElementById('angka2')
+
+        let hitung = document.getElementById('hitung')
+        let btnTambah = document.getElementById('tambah')
+
+        let btnKurang = document.getElementById('kurang')
+
+        let btnKali = document.getElementById('kali')
+        
+        let btnBagi = document.getElementById('bagi')
+
+        let btnClear = document.getElementById('clear')
+
+        let hasilTambah = document.getElementById('hasilTambah')
+        let hasilKurang = document.getElementById('hasilKurang')
+        let hasilBagi = document.getElementById('hasilBagi')
+        let hasilKali = document.getElementById('hasilKali')
+
+        hitung.addEventListener("click", function(){
+            
+            hasilTambah.innerHTML = parseInt( angka1.value) + parseInt( angka2.value)
+            hasilKurang.innerHTML = parseInt( angka1.value) - parseInt( angka2.value)
+            hasilBagi.innerHTML = parseInt( angka1.value) / parseInt( angka2.value)
+            hasilKali.innerHTML = parseInt( angka1.value) * parseInt( angka2.value)
+
+        })
+
+        // btnTambah.addEventListener("click", function(){
+            
+        //     hasilTambah.innerHTML = parseInt( angka1.value) + parseInt( angka2.value)
+
+        // })
+
+        // btnKurang.addEventListener("click", function(){
+            
+        //     hasilKurang.innerHTML = parseInt( angka1.value) - parseInt( angka2.value)
+
+        // })
+
+        // btnKali.addEventListener("click", function(){
+            
+        //     hasilKali.innerHTML = parseInt( angka1.value) * parseInt( angka2.value)
+
+        // })
+
+        // btnBagi.addEventListener("click", function(){
+            
+        //     hasilBagi.innerHTML = parseInt( angka1.value) / parseInt( angka2.value)
+
+        // })
+
+        btnClear.addEventListener("click", function(){
+            angka1.value = ''
+            angka2.value = ''
+            hasilTambah.innerHTML = '...'
+            hasilKurang.innerHTML = '...'
+            hasilKali.innerHTML = '...'
+            hasilBagi.innerHTML = '...'
+
+        })
+
+
+    </script>
+
+
+
+</body>
+
+</html>

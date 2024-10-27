@@ -1,0 +1,72 @@
+
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color: bisque;
+    height: 800px;
+}
+
+.header {
+    height: 80px;
+    text-align: center;
+    background-color: #489CFF;
+    color: white;
+    line-height: 80px;
+
+
+    margin-bottom: 20px;
+
+}
+
+.group-card {
+    display: flex;
+    justify-content:center ;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: #489CFF;
+    width: 200px;
+    /* height: 200px; */
+    margin: 10px;
+    /* text-align: center; */
+    padding-top: 10px;
+    border-radius: 10px;
+    
+}
+
+.gambar {
+    width: 150px; 
+    /* margin-top: 8px;  */
+    border: 2px solid white; 
+    margin: 8px auto;
+    display: block;
+}
+
+button {
+
+    background-color: blue;
+    padding: 8px;
+    color: white;
+    border-radius: 10px;
+    margin-left: 23px;
+
+
+}
+
+.judul {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 23px;
+    margin-top: 6px;
+    padding-bottom: 10px;
+}
+
+
+
+

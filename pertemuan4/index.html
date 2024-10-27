@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pertemuan 4 - Javascript</title>
+</head>
+<body>
+
+<h1 id="tes">Judul 1</h1>
+<h1 id="tes1">Judul 2</h1>
+
+<h2>Nilai dibawah :</h2>
+
+<h2 id="nilai">30</h2>
+
+<h2 id="hasil">hasil</h2>
+
+
+<h3>Umur saya : <span id="umur">50</span></h3>
+<h3>Hasil : <span id="seleksi">...</span></h3>
+
+
+
+
+<script>
+
+    // variabel dan konstanta
+    let x = 10
+    let y = 20
+    // document.write(x)
+    // document.write(y)
+    // document.write("<br>")
+    x = y
+    y = x
+    
+    // document.write("Ini text dari javascript")
+    // document.write("<br>")
+    // document.write(x + y)
+
+    // document.getElementById('tes').innerHTML = x + y
+
+    document.getElementById('tes').style.color = 'red'
+
+    document.getElementById('tes1').style.color = 'green'
+
+    // percabangan (if, else if, else)
+    //  gerbang logika (AND OR NOT)
+    // AND = && - ketika semua kondisi terpenuhi (true)
+    // OR = || - ketika salah satu kondisi terpenuhi
+    // NOT = != - kebalikan dari nilai nya (true = false; false = true)
+    let nilai = document.getElementById('nilai')
+    let hasil = document.getElementById('hasil')
+
+    let angka = nilai.innerHTML
+
+    angka = 20
+    nilai.innerHTML = 30
+
+
+    if (nilai.innerHTML == 20) {
+        nilai.style.color = 'blue'
+        hasil.innerHTML = 'angka di atas nilai nya 20'
+    }
+    else if (nilai.innerHTML == 30) {
+        nilai.style.color = 'green'
+        hasil.innerHTML = 'angka di atas nilai nya 30'
+    }
+    else {
+        nilai.style.color = 'red'
+        hasil.innerHTML = 'angka di atas nilai nya tidak sama'
+    }
+
+
+
+
+
+
+
+
+
+
+
+</script>
+    
+</body>
+</html>

@@ -1,0 +1,75 @@
+
+body {
+    background-image: url('../img/bg1.png');
+}
+
+
+.container {
+    background-color: white;
+    width: 800px;
+    margin: 0 auto;
+    border: 2px solid black;
+}
+
+.header {
+    padding: 20px;
+}
+
+.header ul {
+    display: flex;
+    list-style: none;
+    margin-left: -42px;
+}
+
+.header ul li {
+    margin-right: 30px;
+}
+
+.header ul li a {
+    text-decoration: none;
+    color: #2165f6;
+    font-size: 20px;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.header ul li a:hover {
+    background-color: #2165f6;
+    color: white;
+    transition: 0.5s;
+}
+
+
+.hero {
+    background-size: cover;
+    background-image: url('../img/hero.jpg');
+    height: 280px;
+    background-position: 0 -200px;
+    border-top: 5px solid #2165f6;
+    border-bottom: 5px solid salmon;
+}
+
+
+.artikel  {
+
+    margin: 20px;
+
+}
+
+.judul p {
+    margin-top: -20px;
+    font-size: 14px;
+}
+
+.deskripsi {
+    text-align: justify;
+}
+
+
+.footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 4px;
+    letter-spacing: 2px;
+}

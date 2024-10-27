@@ -1,0 +1,42 @@
+body {
+    background-image: url('bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* background-position: 0px 20px; */
+    background-attachment: fixed;
+}
+
+.header {
+    color: white;
+    background-color: red;
+}
+
+.header:hover {
+    background-color: blue;
+    color: pink;
+    transition: 1s;
+}
+
+.content {
+    background-color: white;
+    text-align: justify;
+    padding: 20px;
+}
+
+.img:hover {
+    padding: 50px;
+    transition: 0.5s;
+}
+
+.footer {
+    color: white;
+    background-color: blue;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 24px;
+}
+
+/* pseudo class */
