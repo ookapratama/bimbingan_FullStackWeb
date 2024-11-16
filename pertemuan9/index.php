@@ -55,7 +55,7 @@ $hasil = mysqli_query($koneksi, $sql);
                 </tr>
             </thead>
             <tbody>
-                <?php if (!mysqli_num_rows($hasil) > 0) {
+                <?php if (mysqli_num_rows($hasil) > 0) {
                     $no = 1;
                     while ($row = mysqli_fetch_assoc($hasil)) :
                 ?>
@@ -65,7 +65,7 @@ $hasil = mysqli_query($koneksi, $sql);
                             <td><?= $row['nama'] ?></td>
                             <td><?= $row['jurusan'] ?></td>
                             <td><?= $row['alamat'] ?></td>
-                            <td><?= $row['tgl_lahir'] ?></td>
+                            <td><?= date('d-m-Y', strtotime($row['tgl_lahir']))  ?></td>
                         </tr>
                     <?php endwhile; ?>
                 <?php } else { ?>
