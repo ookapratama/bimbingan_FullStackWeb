@@ -43,6 +43,7 @@ $hasil = mysqli_query($koneksi, $sql);
     <div class="container-md">
         <h1 class="text-center">Data Mahasiswa</h1>
 
+        <a class="btn btn-success mb-4" href="create.php">Tambah data</a>
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
@@ -52,6 +53,7 @@ $hasil = mysqli_query($koneksi, $sql);
                     <th scope="col">Jurusan</th>
                     <th scope="col">Alamat</th>
                     <th scope="col">Tanggal Lahir</th>
+                    <th scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,6 +68,18 @@ $hasil = mysqli_query($koneksi, $sql);
                             <td><?= $row['jurusan'] ?></td>
                             <td><?= $row['alamat'] ?></td>
                             <td><?= date('d-m-Y', strtotime($row['tgl_lahir']))  ?></td>
+                            <td>
+                                <a class="btn btn-warning" href="update.php?stambuk=<?= $row['stambuk'] ?>">
+                                    Edit
+                                </a>
+
+                                <a class="btn btn-danger"
+                                    onclick="return confirm('Anda yakin hapus?')"
+                                    href="delete.php?stambuk=<?= $row['stambuk'] ?>">
+                                    Hapus
+                                </a>
+                                
+                            </td>
                         </tr>
                     <?php endwhile; ?>
                 <?php } else { ?>
