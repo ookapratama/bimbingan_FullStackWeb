@@ -1,58 +1,3 @@
-<?php
-
-include '../../config/koneksi.php';
-// var_dump($_POST);
-
-$id = $_GET['id'];
-
-$sql = "SELECT * FROM tb_admin WHERE id = $id";
-$query_lama = mysqli_query($koneksi, $sql);
-$data_lama = $query_lama->fetch_assoc();
-
-// var_dump($data_lama);
-
-if (isset($_POST['submit'])) {
-
-    $nama = $_POST['nama_lengkap'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $password_lama = $_POST['password_lama'];
-    $role = $_POST['role'];
-
-    $password = $password == '' ? $password_lama : $password;
-
-    $sql = "
-        UPDATE tb_admin SET 
-        nama_lengkap = '$nama',
-        username = '$username',
-        role = '$role',
-        password = '$password'
-            WHERE id = $id
-     ";
-
-    if ($koneksi->query($sql) === TRUE) {
-        echo "
-           <script>
-                alert('Berhasil update data');
-                window.location.href = 'index_admin.php';
-           </script> 
-        ";
-    } else {
-        echo "
-           <script>
-                alert('Gagal update data');
-                window.location.href = 'edit_admin.php';
-           </script> 
-        ";
-    }
-}
-
-
-
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -312,11 +257,11 @@ if (isset($_POST['submit'])) {
                         <li class="menu-header">Dashboard</li>
                         <li class=""><a class="nav-link" href="../../index.php"><i class="fas fa-columns"></i>Dashboard</a></li>
                         <li class="menu-header">Fitur</li>
-                        <li class=""><a class="nav-link" href="../data_akun/index_akun.php"><i class="fas fa-columns"></i>Akun</a></li>
+                        <li class="active"><a class="nav-link" href="index_akun.php"><i class="fas fa-columns"></i>Akun</a></li>
                         <li class=""><a class="nav-link" href=""><i class="fas fa-columns"></i>Transaksi</a></li>
-                        <li class=""><a class="nav-link" href="../data_produk/index_produk.php"><i class="fas fa-columns"></i>Produk</a></li>
+                        <li class=""><a class="nav-link" href="index_produk.php"><i class="fas fa-columns"></i>Produk</a></li>
                         <li class=""><a class="nav-link" href="../data_kategori/index_kategori.php"><i class="fas fa-columns"></i>Kategori</a></li>
-                        <li class="active"><a class="nav-link" href="index_admin.php"><i class="fas fa-columns"></i>Admin</a></li>
+                        <li class=""><a class="nav-link" href="../data_admin/index_admin.php"><i class="fas fa-columns"></i>Admin</a></li>
 
 
                         <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
@@ -332,11 +277,11 @@ if (isset($_POST['submit'])) {
             <div class="main-content">
                 <section class="section">
                     <div class="section-header">
-                        <h1>Edit Admin</h1>
+                        <h1>Data Akun</h1>
                         <div class="section-header-breadcrumb">
                             <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                             <div class="breadcrumb-item"><a href="#">Bootstrap Components</a></div>
-                            <div class="breadcrumb-item">Form</div>
+                            <div class="breadcrumb-item">Table</div>
                         </div>
                     </div>
 
@@ -345,56 +290,62 @@ if (isset($_POST['submit'])) {
 
                         <div class="row">
                             <div class="col-12 col-md-12 col-lg-12">
-                                <form action="" method="POST">
-                                    <input type="hidden" name="id" value="<?= $data_lama['id'] ?>">
-                                    <div class="card">
-
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Nama Lengkap</label>
-                                                        <input required value="<?= $data_lama['nama_lengkap'] ?>" type="text" name="nama_lengkap" class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Username</label>
-                                                        <input required value="<?= $data_lama['username'] ?>" type="text" name="username" class="form-control">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Password</label>
-                                                        <input type="password" name="password" class="form-control">
-                                                        <input value="<?= $data_lama['password'] ?>" type="hidden" name="password_lama">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Pilih Role</label>
-                                                        <select name="role" class="form-control">
-                                                            <option value="">-- Pilih --</option>
-                                                            <option <?= $data_lama['role'] == 'admin' ? 'selected' : ''  ?> value="admin">Admin</option>
-                                                            <option <?= $data_lama['role'] == 'penjual' ? 'selected' : ''  ?> value="penjual">Penjual</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="card-footer text-right">
-                                            <button class="btn btn-primary mr-1" name="submit" type="submit">Submit</button>
-                                            <button class="btn btn-secondary" type="reset">Reset</button>
-                                        </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <a href="tambah_akun.php" class="btn btn-success">
+                                            Tambah data
+                                        </a>
                                     </div>
-                                </form>
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Foto</th>
+                                                    <th scope="col">Nama Lengkap</th>
+                                                    <th scope="col">Username</th>
+                                                    <th scope="col">Email</th>
+                                                    <th scope="col">Alamat</th>
+                                                    <th scope="col">No. Telpon</th>
+                                                    <th scope="col">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                include '../../config/koneksi.php';
+                                                $sql = 'SELECT * FROM tb_akun';
+                                                $data = mysqli_query($koneksi, $sql);
+                                                $i = 1;
+                                                while ($row = mysqli_fetch_assoc($data)) {
+                                                ?>
+                                                    <tr>
+                                                        <th scope="row"><?= $i++ ?></th>
+                                                        <td>
+                                                            <!-- nama gambar -->
+                                                            <img src="../../assets/upload/akun/<?= $row['foto'] ?>" width="150" alt="">
+                                                        </td>
+                                                        <td><?= $row['nama_lengkap'] ?></td>
+                                                        <td><?= $row['username'] ?></td>
+                                                        <td><?= $row['email'] ?></td>
+                                                        <td><?= $row['alamat'] ?></td>
+                                                        <td><?= $row['no_telpon'] ?></td>
+                                                        <td>
+                                                            <a href="edit_akun.php?id=<?= $row['id'] ?>" class="btn btn-warning">
+                                                                Edit
+                                                            </a>
+                                                            <a href="hapus_akun.php?id=<?= $row['id'] ?>" class="btn btn-danger">
+                                                                Hapus
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
                             </div>
+
                         </div>
                     </div>
                 </section>

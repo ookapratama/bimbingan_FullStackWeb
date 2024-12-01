@@ -1,47 +1,94 @@
 <?php
 
 include '../../config/koneksi.php';
-// var_dump($_POST);
 
 $id = $_GET['id'];
-
-$sql = "SELECT * FROM tb_admin WHERE id = $id";
-$query_lama = mysqli_query($koneksi, $sql);
+$sql_lama = "SELECT * FROM tb_produk WHERE id = $id";
+$query_lama = mysqli_query($koneksi, $sql_lama);
 $data_lama = $query_lama->fetch_assoc();
-
-// var_dump($data_lama);
 
 if (isset($_POST['submit'])) {
 
-    $nama = $_POST['nama_lengkap'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $password_lama = $_POST['password_lama'];
-    $role = $_POST['role'];
+    // var_dump($_POST);
 
-    $password = $password == '' ? $password_lama : $password;
+    $nama_gambar = $_FILES['gambar']['name'];
+    // tipe/ekstensi gambar (png, jpg, jpeg, pdf, docx)
+    $tipe_gambar = $_FILES['gambar']['type'];
+    // tempat sementara file tersimpan 
+    // dipindahkan ke folder yg kita buat
+    $tmp_gambar  = $_FILES['gambar']['tmp_name'];
+    $size_gambar  = $_FILES['gambar']['size'];
+    $error_gambar  = $_FILES['gambar']['error'];
+    
+    // kondisi jika tidak upload 
+    if ($_FILES['gambar']['size'] == 0) {
+        $nama_gambar = $_POST['gambarLama'];
+    }
+    else {
+        $folder = "../../assets/upload/produk/";
+    
+        // validasi ukuran file
+        if ($size_gambar > 2097152) { // = 2mb -> 2 * 1024 * 1024
+            echo "
+                <script>
+                    alert('File yang anda upload harus dibawah 2mb');
+                    window.location.href = 'tambah_produk.php';
+                </script>
+            ";
+        }
+    
+        // validasi tipe gambar
+        $ekstensiLolos = ['image/png', 'image/jpg', 'image/jpeg'];
+        if (!in_array($tipe_gambar, $ekstensiLolos)) {
+            echo "
+                <script>
+                    alert('File harus bertipe png/jpg/jpeg');
+                    window.location.href = 'tambah_produk.php';
+                </script>
+            ";
+        }
+    
+    
+        // proses pindahkan file fke folder yang dibuat
+        $pathUpload = $folder . basename($nama_gambar);
+    
+        if (move_uploaded_file($tmp_gambar, $pathUpload)) {
+            echo "
+                <script>
+                    alert('File terupload');
+                </script>
+            ";
+        }
+    }
 
-    $sql = "
-        UPDATE tb_admin SET 
-        nama_lengkap = '$nama',
-        username = '$username',
-        role = '$role',
-        password = '$password'
-            WHERE id = $id
+
+
+    $nama_produk = $_POST['nama_produk'];
+    $harga = $_POST['harga'];
+    $deskripsi = $_POST['deskripsi'];
+    $id_kategori = $_POST['id_kategori'];
+
+    $sql = "UPDATE tb_produk SET 
+            nama_produk = '$nama_produk', 
+            deskripsi = '$deskripsi', 
+            harga = '$harga', 
+            gambar = '$nama_gambar', 
+            id_kategori = $id_kategori
+                WHERE id = $id
      ";
 
     if ($koneksi->query($sql) === TRUE) {
         echo "
            <script>
                 alert('Berhasil update data');
-                window.location.href = 'index_admin.php';
+                window.location.href = 'index_produk.php';
            </script> 
         ";
     } else {
         echo "
            <script>
                 alert('Gagal update data');
-                window.location.href = 'edit_admin.php';
+                window.location.href = 'edit_produk.php';
            </script> 
         ";
     }
@@ -314,9 +361,9 @@ if (isset($_POST['submit'])) {
                         <li class="menu-header">Fitur</li>
                         <li class=""><a class="nav-link" href="../data_akun/index_akun.php"><i class="fas fa-columns"></i>Akun</a></li>
                         <li class=""><a class="nav-link" href=""><i class="fas fa-columns"></i>Transaksi</a></li>
-                        <li class=""><a class="nav-link" href="../data_produk/index_produk.php"><i class="fas fa-columns"></i>Produk</a></li>
+                        <li class="active"><a class="nav-link" href="index_produk.php"><i class="fas fa-columns"></i>Produk</a></li>
                         <li class=""><a class="nav-link" href="../data_kategori/index_kategori.php"><i class="fas fa-columns"></i>Kategori</a></li>
-                        <li class="active"><a class="nav-link" href="index_admin.php"><i class="fas fa-columns"></i>Admin</a></li>
+                        <li class=""><a class="nav-link" href="../data_admin/index_admin.php"><i class="fas fa-columns"></i>Admin</a></li>
 
 
                         <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
@@ -332,7 +379,7 @@ if (isset($_POST['submit'])) {
             <div class="main-content">
                 <section class="section">
                     <div class="section-header">
-                        <h1>Edit Admin</h1>
+                        <h1>Edit Produk</h1>
                         <div class="section-header-breadcrumb">
                             <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                             <div class="breadcrumb-item"><a href="#">Bootstrap Components</a></div>
@@ -345,22 +392,21 @@ if (isset($_POST['submit'])) {
 
                         <div class="row">
                             <div class="col-12 col-md-12 col-lg-12">
-                                <form action="" method="POST">
-                                    <input type="hidden" name="id" value="<?= $data_lama['id'] ?>">
+                                <form action="" method="POST" enctype="multipart/form-data">
                                     <div class="card">
 
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Nama Lengkap</label>
-                                                        <input required value="<?= $data_lama['nama_lengkap'] ?>" type="text" name="nama_lengkap" class="form-control">
+                                                        <label>Nama produk</label>
+                                                        <input required type="text" value="<?= $data_lama['nama_produk'] ?>" name="nama_produk" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Username</label>
-                                                        <input required value="<?= $data_lama['username'] ?>" type="text" name="username" class="form-control">
+                                                        <label>Deskripsi</label>
+                                                        <input required type="text" name="deskripsi" value="<?= $data_lama['deskripsi'] ?>" class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
@@ -369,20 +415,41 @@ if (isset($_POST['submit'])) {
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Password</label>
-                                                        <input type="password" name="password" class="form-control">
-                                                        <input value="<?= $data_lama['password'] ?>" type="hidden" name="password_lama">
+                                                        <label>Harga</label>
+                                                        <input required type="number" value="<?= $data_lama['harga'] ?>" name="harga" class="form-control">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Pilih Role</label>
-                                                        <select name="role" class="form-control">
+                                                        <label>Pilih Kategori</label>
+                                                        <select name="id_kategori" class="form-control">
                                                             <option value="">-- Pilih --</option>
-                                                            <option <?= $data_lama['role'] == 'admin' ? 'selected' : ''  ?> value="admin">Admin</option>
-                                                            <option <?= $data_lama['role'] == 'penjual' ? 'selected' : ''  ?> value="penjual">Penjual</option>
+                                                            <?php
+                                                            $sql = "SELECT * FROM tb_kategori";
+                                                            $data = mysqli_query($koneksi, $sql);
+                                                            $i = 1;
+                                                            while ($row = mysqli_fetch_assoc($data)) {
+                                                            ?>
+                                                                <option <?= $data_lama['id_kategori'] == $row['id'] ? 'selected' : '' ?> value="<?= $row['id'] ?>"><?= $row['nama_kategori'] ?></option>
+                                                            <?php } ?>
                                                         </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Gambar Produk</label>
+                                                        <input type="file" name="gambar" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Preview Gambar</label>
+                                                        <img src="../../assets/upload/produk/<?= $data_lama['gambar'] ?>" width="300" alt="">
+                                                        <input type="hidden" value="<?= $data_lama['gambar'] ?>" name="gambarLama">
                                                     </div>
                                                 </div>
                                             </div>
