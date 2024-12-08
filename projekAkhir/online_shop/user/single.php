@@ -1,3 +1,20 @@
+<?php
+include '../config/koneksi.php';
+$id = $_GET['id'];
+
+$sql = "SELECT a.*, b.nama_kategori as kategori FROM tb_produk as a 
+		JOIN tb_kategori as b 
+		ON a.id_kategori = b.id 
+		WHERE a.id = $id";
+$get_produk = mysqli_query($koneksi, $sql);
+$produk = $get_produk->fetch_assoc();
+
+
+
+
+
+?>
+
 <!DOCTYPE html>
 
 <!--
@@ -57,9 +74,10 @@
 							<span class="navbar-toggler-icon"></span>
 						</button>
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
 							<ul class="navbar-nav ml-auto main-nav ">
 								<!-- custome menu -->
-								<li class="nav-item active">
+								<li class="nav-item">
 									<a class="nav-link" href="index.php">Home</a>
 								</li>
 								<li class="nav-item">
@@ -73,6 +91,7 @@
 								</li>
 
 							</ul>
+
 							<ul class="navbar-nav ml-auto mt-10">
 								<li class="nav-item">
 									<a class="nav-link login-button" href="login.php">Login</a>
@@ -120,192 +139,189 @@
 			</div>
 		</div>
 	</section>
-	<section class="section-sm">
+	<!--===================================
+=            Store Section            =
+====================================-->
+	<section class="section bg-gray">
+		<!-- Container Start -->
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
-					<div class="search-result bg-gray">
-						<h2>Results For "Electronics"</h2>
-						<p>123 Results on 12 December, 2017</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-3 col-md-4">
-					<div class="category-sidebar">
-						<div class="widget category-list">
-							<h4 class="widget-header">All Category</h4>
-							<ul class="category-list">
-								<li><a href="category.html">Laptops <span>93</span></a></li>
-								<li><a href="category.html">Iphone <span>233</span></a></li>
-								<li><a href="category.html">Microsoft <span>183</span></a></li>
-								<li><a href="category.html">Monitors <span>343</span></a></li>
+				<!-- Left sidebar -->
+				<div class="col-lg-8">
+					<div class="product-details">
+						<h1 class="product-title"><?= $produk['nama_produk'] ?></h1>
+						<div class="product-meta">
+							<ul class="list-inline">
+								<li class="list-inline-item"><i class="fa fa-user-o"></i> By <a href="#">Andrew</a></li>
+								<li class="list-inline-item"><i class="fa fa-folder-open-o"></i> Category<a href="#"><?= $produk['kategori'] ?></a></li>
+								<li class="list-inline-item"><i class="fa fa-location-arrow"></i> Location<a href="#">Dhaka Bangladesh</a></li>
 							</ul>
 						</div>
 
-						<div class="widget category-list">
-							<h4 class="widget-header">Nearby</h4>
-							<ul class="category-list">
-								<li><a href="category.html">New York <span>93</span></a></li>
-								<li><a href="category.html">New Jersy <span>233</span></a></li>
-								<li><a href="category.html">Florida <span>183</span></a></li>
-								<li><a href="category.html">California <span>120</span></a></li>
-								<li><a href="category.html">Texas <span>40</span></a></li>
-								<li><a href="category.html">Alaska <span>81</span></a></li>
+						<!-- product slider -->
+						<img class="img-fluid w-100 mt-5" src="../assets/upload/produk/<?= $produk['gambar'] ?>" alt="product-img">
+						<!-- product slider -->
+
+						<div class="content  pt-5">
+							<ul class="nav nav-pills  justify-content-center" id="pills-tab" role="tablist">
+								<li class="nav-item">
+									<a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home"
+										aria-selected="true">Product Details</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile"
+										aria-selected="false">Specifications</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact"
+										aria-selected="false">Reviews</a>
+								</li>
 							</ul>
-						</div>
-
-						<div class="widget filter">
-							<h4 class="widget-header">Show Produts</h4>
-							<select>
-								<option>Popularity</option>
-								<option value="1">Top rated</option>
-								<option value="2">Lowest Price</option>
-								<option value="4">Highest Price</option>
-							</select>
-						</div>
-
-						<div class="widget price-range w-100">
-							<h4 class="widget-header">Price Range</h4>
-							<div class="block">
-								<input class="range-track w-100" type="text" data-slider-min="0" data-slider-max="5000" data-slider-step="5"
-									data-slider-value="[0,5000]">
-								<div class="d-flex justify-content-between mt-2">
-									<span class="value">$10 - $5000</span>
+							<div class="tab-content" id="pills-tabContent">
+								<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+									<h3 class="tab-title">Product Description</h3>
+									<p><?= $produk['deskripsi'] ?></p>
 								</div>
-							</div>
-						</div>
-
-						<div class="widget product-shorting">
-							<h4 class="widget-header">By Condition</h4>
-							<div class="form-check">
-								<label class="form-check-label">
-									<input class="form-check-input" type="checkbox" value="">
-									Brand New
-								</label>
-							</div>
-							<div class="form-check">
-								<label class="form-check-label">
-									<input class="form-check-input" type="checkbox" value="">
-									Almost New
-								</label>
-							</div>
-							<div class="form-check">
-								<label class="form-check-label">
-									<input class="form-check-input" type="checkbox" value="">
-									Gently New
-								</label>
-							</div>
-							<div class="form-check">
-								<label class="form-check-label">
-									<input class="form-check-input" type="checkbox" value="">
-									Havely New
-								</label>
-							</div>
-						</div>
-
-					</div>
-				</div>
-				<div class="col-lg-9 col-md-8">
-					<div class="category-search-filter">
-						<div class="row">
-							<div class="col-md-6 text-center text-md-left">
-								<strong>Short</strong>
-								<select>
-									<option>Most Recent</option>
-									<option value="1">Most Popular</option>
-									<option value="2">Lowest Price</option>
-									<option value="4">Highest Price</option>
-								</select>
-							</div>
-							<div class="col-md-6 text-center text-md-right mt-2 mt-md-0">
-								<div class="view">
-									<strong>Views</strong>
-									<ul class="list-inline view-switcher">
-										<li class="list-inline-item">
-											<a href="category.php"><i class="fa fa-th-large"></i></a>
-										</li>
-										<li class="list-inline-item">
-											<a href="ad-list-view.php" class="text-info"><i class="fa fa-reorder"></i></a>
-										</li>
-									</ul>
+								<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+									<h3 class="tab-title">Product Specifications</h3>
+									<table class="table table-bordered product-table">
+										<tbody>
+											<tr>
+												<td>Seller Price</td>
+												<td>Rp. <?= $produk['harga'] ?></td>
+											</tr>
+											<tr>
+												<td>Description</td>
+												<td><?= $produk['deskripsi'] ?></td>
+											</tr>
+											<tr>
+												<td>Kategori</td>
+												<td><?= $produk['kategori'] ?></td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
-							</div>
-						</div>
-					</div>
-					<div class="product-grid-list">
-						<div class="row mt-30">
-							<?php
-							include '../config/koneksi.php';
-
-							$sql = "SELECT a.*, b.nama_kategori as kategori FROM tb_produk as a JOIN tb_kategori as b ON a.id_kategori = b.id";
-							$hasil = mysqli_query($koneksi, $sql);
-							while ($row = mysqli_fetch_assoc($hasil)) {
-							?>
-								<div class="col-lg-4 col-md-6">
-									<!-- product card -->
-									<div class="product-item bg-light">
-										<div class="card">
-											<div class="thumb-content">
-												<!-- <div class="price">$200</div> -->
-												<a href="single.php?id=<?= $row['id'] ?>">
-													<img class="card-img-top img-fluid" src="../assets/upload/produk/<?= $row['gambar'] ?>" alt="Card image cap">
-												</a>
-											</div>
-											<div class="card-body">
-												<h4 class="card-title"><a href="single.php?id=<?= $row['id'] ?>"><?= $row['nama_produk'] ?></a></h4>
-												<ul class="list-inline product-meta">
-													<li class="list-inline-item">
-														<a href="single.php?id=<?= $row['id'] ?>"><i class="fa fa-folder-open-o"></i><?= $row['kategori'] ?></a>
-													</li>
-													<li class="list-inline-item">
-														<a href="category.html"><i class="fa fa-calendar"></i>26th December</a>
-													</li>
-												</ul>
-												<p class="card-text"><?= $row['deskripsi'] ?></p>
-												<div class="product-ratings">
+								<div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+									<h3 class="tab-title">Product Review</h3>
+									<div class="product-review">
+										<div class="media">
+											<!-- Avater -->
+											<img src="images/user/user-thumb.jpg" alt="avater">
+											<div class="media-body">
+												<!-- Ratings -->
+												<div class="ratings">
 													<ul class="list-inline">
-														<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-														<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-														<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-														<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-														<li class="list-inline-item"><i class="fa fa-star"></i></li>
+														<li class="list-inline-item">
+															<i class="fa fa-star"></i>
+														</li>
+														<li class="list-inline-item">
+															<i class="fa fa-star"></i>
+														</li>
+														<li class="list-inline-item">
+															<i class="fa fa-star"></i>
+														</li>
+														<li class="list-inline-item">
+															<i class="fa fa-star"></i>
+														</li>
+														<li class="list-inline-item">
+															<i class="fa fa-star"></i>
+														</li>
 													</ul>
+												</div>
+												<div class="name">
+													<h5>Jessica Brown</h5>
+												</div>
+												<div class="date">
+													<p>Mar 20, 2018</p>
+												</div>
+												<div class="review-comment">
+													<p>
+														Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremqe laudant tota rem ape
+														riamipsa eaque.
+													</p>
 												</div>
 											</div>
 										</div>
+										<div class="review-submission">
+											<h3 class="tab-title">Submit your review</h3>
+											<!-- Rate -->
+											<div class="rate">
+												<div class="starrr"></div>
+											</div>
+											<div class="review-submit">
+												<form action="#" method="POST" class="row">
+													<div class="col-lg-6 mb-3">
+														<input type="text" name="name" id="name" class="form-control" placeholder="Name" required>
+													</div>
+													<div class="col-lg-6 mb-3">
+														<input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+													</div>
+													<div class="col-12 mb-3">
+														<textarea name="review" id="review" rows="6" class="form-control" placeholder="Message" required></textarea>
+													</div>
+													<div class="col-12">
+														<button type="submit" class="btn btn-main">Sumbit</button>
+													</div>
+												</form>
+											</div>
+										</div>
 									</div>
-
-
-
 								</div>
-							<?php } ?>
+							</div>
 						</div>
 					</div>
-					<div class="pagination justify-content-center">
-						<nav aria-label="Page navigation example">
-							<ul class="pagination">
-								<li class="page-item">
-									<a class="page-link" href="category.html" aria-label="Previous">
-										<span aria-hidden="true">&laquo;</span>
-										<span class="sr-only">Previous</span>
-									</a>
-								</li>
-								<li class="page-item"><a class="page-link" href="category.html">1</a></li>
-								<li class="page-item active"><a class="page-link" href="category.html">2</a></li>
-								<li class="page-item"><a class="page-link" href="category.html">3</a></li>
-								<li class="page-item">
-									<a class="page-link" href="category.html" aria-label="Next">
-										<span aria-hidden="true">&raquo;</span>
-										<span class="sr-only">Next</span>
-									</a>
-								</li>
-							</ul>
-						</nav>
+				</div>
+				<div class="col-lg-4">
+					<div class="sidebar">
+						<div class="widget price text-center">
+							<h4>Price</h4>
+							<p>Rp. <?= $produk['harga'] ?></p>
+						</div>
+						<!-- User Profile widget -->
+						<div class="widget text-center">
+							<!-- <img class="rounded-circle img-fluid mb-5 px-5" src="images/user/user-thumb.jpg" alt="">
+							<h4><a href="user-profile.html">Jonathon Andrew</a></h4>
+							<p class="member-time">Member Since Jun 27, 2017</p>
+							<a href="single.html">See all ads</a> -->
+							<form action="checkout.php" method="POST">
+								<input type="number" required name="jumlah" class="form-control mb-2 " placeholder="isi jumlah produk">
+								<input type="hidden" name="id_produk" value="<?= $produk['id'] ?>">
+								<ul class="list-inline d-flex">
+									<li class="list-inline-item">
+										<button name="keranjang" type="submit" class="btn btn-contact d-inline-block  btn-primary px-lg-4 my-1 px-md-3">+ Keranjang
+										</button>
+									</li>
+
+									<li class="list-inline-item">
+										<button name="checkout" type="submit" class="btn btn-offer d-inline-block btn-primary ml-n1 my-1 px-lg-4 px-md-3">Checkout
+										</button>
+									</li>
+								</ul>
+							</form>
+						</div>
+						<!-- Map Widget -->
+						<div class="widget map">
+							<div class="map">
+								<div id="map" data-latitude="51.507351" data-longitude="-0.127758"></div>
+							</div>
+						</div>
+						<!-- Rate Widget -->
+						<div class="widget rate">
+							<!-- Heading -->
+							<h5 class="widget-header text-center">What would you rate
+								<br>
+								this product
+							</h5>
+							<!-- Rate -->
+							<div class="starrr"></div>
+						</div>
+
 					</div>
 				</div>
+
 			</div>
 		</div>
+		<!-- Container End -->
 	</section>
 	<!--============================
 =            Footer            =

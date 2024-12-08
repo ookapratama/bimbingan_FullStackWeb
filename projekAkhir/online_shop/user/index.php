@@ -76,7 +76,7 @@
 							</ul>
 							<ul class="navbar-nav ml-auto mt-10">
 								<li class="nav-item">
-									<a class="nav-link login-button" href="login.html">Login</a>
+									<a class="nav-link login-button" href="login.php">Login</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link text-white add-button" href="ad-listing.html"><i class="fa fa-plus-circle"></i> Add Listing</a>
@@ -195,15 +195,15 @@
 									<div class="card">
 										<div class="thumb-content">
 											<!-- <div class="price">$200</div> -->
-											<a href="single.html">
+											<a href="single.php?id=<?= $row['id'] ?>">
 												<img class="card-img-top img-fluid" src="../assets/upload/produk/<?= $row['gambar'] ?>" alt="Card image cap">
 											</a>
 										</div>
 										<div class="card-body">
-											<h4 class="card-title"><a href="single.html"><?= $row['nama_produk'] ?></a></h4>
+											<h4 class="card-title"><a href="single.php?id=<?= $row['id'] ?>"><?= $row['nama_produk'] ?></a></h4>
 											<ul class="list-inline product-meta">
 												<li class="list-inline-item">
-													<a href="single.html"><i class="fa fa-folder-open-o"></i><?= $row['kategori'] ?></a>
+													<a href="single.php?id=<?= $row['id'] ?>"><i class="fa fa-folder-open-o"></i><?= $row['kategori'] ?></a>
 												</li>
 												<li class="list-inline-item">
 													<a href="category.html"><i class="fa fa-calendar"></i>26th December</a>

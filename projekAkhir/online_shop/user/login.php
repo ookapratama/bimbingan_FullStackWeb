@@ -1,3 +1,44 @@
+<?php
+
+include '../config/koneksi.php';
+if (isset($_POST['submit'])) {
+
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+
+  $sql = "SELECT * FROM tb_akun WHERE username = '$username' AND password = '$password'";
+
+  $get_data = mysqli_query($koneksi, $sql);
+  $akun = $get_data->fetch_assoc();
+
+  if ($koneksi->query($sql) == true) {
+    session_start();
+    $_SESSION['username'] = $akun['username'];
+    $_SESSION['nama_lengkap'] = $akun['nama_lengkap'];
+    $_SESSION['id_akun'] = $akun['id'];
+    $_SESSION['status_login'] = true;
+
+    echo "
+      <script>
+        alert('Anda berhasil login');
+        window.location.href = 'dashboard.php';
+      </script>
+    ";
+  } else {
+    echo "
+      <script>
+        alert('Periksa kembali username dan password anda');
+        window.location.href = 'login.php';
+      </script>
+    ";
+  }
+}
+
+
+
+
+?>
+
 <!DOCTYPE html>
 
 <!--
@@ -58,6 +99,7 @@
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
               <ul class="navbar-nav ml-auto main-nav ">
                 <!-- custome menu -->
                 <li class="nav-item active">
@@ -74,6 +116,7 @@
                 </li>
 
               </ul>
+
               <ul class="navbar-nav ml-auto mt-10">
                 <li class="nav-item">
                   <a class="nav-link login-button" href="login.php">Login</a>
@@ -89,126 +132,25 @@
     </div>
   </header>
 
-  <!--================================
-=            Page Title            =
-=================================-->
-  <section class="page-title">
-    <!-- Container Start -->
+  <section class="login py-5 border-top-1">
     <div class="container">
-      <div class="row">
-        <div class="col-md-8 offset-md-2 text-center">
-          <!-- Title text -->
-          <h3>About Us</h3>
-        </div>
-      </div>
-    </div>
-    <!-- Container End -->
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="about-img">
-            <img src="images/about/about.jpg" class="img-fluid w-100 rounded" alt="">
-          </div>
-        </div>
-        <div class="col-lg-6 pt-5 pt-lg-0">
-          <div class="about-content">
-            <h3 class="font-weight-bold">Introduction</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc est justo, aliquam nec tempor
-              fermentum, commodo et libero. Quisque et rutrum arcu. Vivamus dictum tincidunt magna id
-              euismod. Nam sollicitudin mi quis orci lobortis feugiat.</p>
-            <h3 class="font-weight-bold">How we can help</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc est justo, aliquam nec tempor
-              fermentum, commodo et libero. Quisque et rutrum arcu. Vivamus dictum tincidunt magna id
-              euismod. Nam sollicitudin mi quis orci lobortis feugiat. Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit. Nunc est justo, aliquam nec tempor fermentum, commodo et libero. Quisque et rutrum arcu. Vivamus dictum
-              tincidunt magna id euismod. Nam sollicitudin mi quis orci lobortis feugiat.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="mb-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="heading text-center text-capitalize font-weight-bold py-5">
-            <h2>our team</h2>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card my-3 my-lg-0">
-            <img class="card-img-top" src="images/team/team1.jpg" class="img-fluid w-100" alt="Card image cap">
-            <div class="card-body bg-gray text-center">
-              <h5 class="card-title">John Doe</h5>
-              <p class="card-text">Founder / CEO</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card my-3 my-lg-0">
-            <img class="card-img-top" src="images/team/team2.jpg" class="img-fluid w-100" alt="Card image cap">
-            <div class="card-body bg-gray text-center">
-              <h5 class="card-title">John Doe</h5>
-              <p class="card-text">Founder / CEO</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card my-3 my-lg-0">
-            <img class="card-img-top" src="images/team/team3.jpg" class="img-fluid w-100" alt="Card image cap">
-            <div class="card-body bg-gray text-center">
-              <h5 class="card-title">John Doe</h5>
-              <p class="card-text">Founder / CEO</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card my-3 my-lg-0">
-            <img class="card-img-top" src="images/team/team4.jpg" class="img-fluid w-100" alt="Card image cap">
-            <div class="card-body bg-gray text-center">
-              <h5 class="card-title">John Doe</h5>
-              <p class="card-text">Founder / CEO</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section bg-gray">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3 col-sm-6 my-lg-0 my-3">
-          <div class="counter-content text-center bg-light py-4 rounded">
-            <i class="fa fa-smile-o d-block"></i>
-            <span class="counter my-2 d-block" data-count="2314">0</span>
-            <h5>Happy Customers</h5>
-            </script>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6 my-lg-0 my-3">
-          <div class="counter-content text-center bg-light py-4 rounded">
-            <i class="fa fa-user-o d-block"></i>
-            <span class="counter my-2 d-block" data-count="1013">0</span>
-            <h5>Active Members</h5>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6 my-lg-0 my-3">
-          <div class="counter-content text-center bg-light py-4 rounded">
-            <i class="fa fa-bookmark-o d-block"></i>
-            <span class="counter my-2 d-block" data-count="2413">0</span>
-            <h5>Verified Ads</h5>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6 my-lg-0 my-3">
-          <div class="counter-content text-center bg-light py-4 rounded">
-            <i class="fa fa-smile-o d-block"></i>
-            <span class="counter my-2 d-block" data-count="200">0</span>
-            <h5>Happy Customers</h5>
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-8 align-item-center">
+          <div class="border">
+            <h3 class="bg-gray p-4">Login Now</h3>
+            <form action="" method="POST">
+              <fieldset class="p-4">
+                <input class="form-control mb-3" type="text" name="username" placeholder="Username" required>
+                <input class="form-control mb-3" type="password" name="password" placeholder="Password" required>
+                <div class="loggedin-forgot">
+                  <input type="checkbox" id="keep-me-logged-in">
+                  <label for="keep-me-logged-in" class="pt-3 pb-2">Keep me logged in</label>
+                </div>
+                <button type="submit" name="submit" class="btn btn-primary font-weight-bold mt-3">Log in</button>
+                <a class="mt-3 d-block text-primary" href="#!">Forget Password?</a>
+                <a class="mt-3 d-inline-block text-primary" href="register.php">Register Now</a>
+              </fieldset>
+            </form>
           </div>
         </div>
       </div>

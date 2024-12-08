@@ -1,3 +1,86 @@
+<?php
+include '../config/koneksi.php';
+if (isset($_POST['submit'])) {
+
+
+  $nama_gambar = $_FILES['foto']['name'];
+  // tipe/ekstensi foto (png, jpg, jpeg, pdf, docx)
+  $tipe_gambar = $_FILES['foto']['type'];
+  // tempat sementara file tersimpan 
+  // dipindahkan ke folder yg kita buat
+  $tmp_gambar  = $_FILES['foto']['tmp_name'];
+  $size_gambar  = $_FILES['foto']['size'];
+  $error_gambar  = $_FILES['foto']['error'];
+
+  $folder = "../assets/upload/akun/";
+
+  // validasi ukuran file
+  if ($size_gambar > 2097152) { // = 2mb -> 2 * 1024 * 1024
+    echo "
+            <script>
+                alert('File yang anda upload harus dibawah 2mb');
+                window.location.href = 'register.php';
+            </script>
+        ";
+  }
+
+  // validasi tipe gambar
+  $ekstensiLolos = ['image/png', 'image/jpg', 'image/jpeg'];
+  if (!in_array($tipe_gambar, $ekstensiLolos)) {
+    echo "
+            <script>
+                alert('File harus bertipe png/jpg/jpeg');
+                window.location.href = 'register.php';
+            </script>
+        ";
+  }
+
+
+  // proses pindahkan file fke folder yang dibuat
+  $pathUpload = $folder . basename($nama_gambar);
+
+  if (move_uploaded_file($tmp_gambar, $pathUpload)) {
+    echo "
+            <script>
+                alert('File terupload');
+            </script>
+        ";
+  }
+
+
+  $email = $_POST['email'];
+  $nama_lengkap = $_POST['nama_lengkap'];
+  $username = $_POST['username'];
+  $no_telpon = $_POST['no_telpon'];
+  $alamat = $_POST['alamat'];
+  $password = $_POST['password'];
+
+  $sql = "INSERT INTO tb_akun (nama_lengkap, alamat, no_telpon, username, email, password, foto)
+          VALUES ('$nama_lengkap', '$alamat', '$no_telpon', '$username', '$email', '$password', '$nama_gambar')
+  ";
+
+  if ($koneksi->query($sql) == TRUE) {
+    echo "
+      <script>
+        alert('Berhasil register akun, silahkan login menggunakan email anda');
+        window.location.href = 'login.php';
+      </script>
+    ";
+  }
+  else {
+    echo "
+      <script>
+        alert('Gagal register');
+        window.location.href = 'register.php';
+      </script>
+    ";
+  }
+
+}
+
+
+?>
+
 <!DOCTYPE html>
 
 <!--
@@ -89,132 +172,38 @@
     </div>
   </header>
 
-  <!--================================
-=            Page Title            =
-=================================-->
-  <section class="page-title">
-    <!-- Container Start -->
+  <section class="login py-5 border-top-1">
     <div class="container">
-      <div class="row">
-        <div class="col-md-8 offset-md-2 text-center">
-          <!-- Title text -->
-          <h3>About Us</h3>
-        </div>
-      </div>
-    </div>
-    <!-- Container End -->
-  </section>
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-8 align-item-center">
+          <div class="border border">
+            <h3 class="bg-gray p-4">Register Now</h3>
+            <form action="" enctype="multipart/form-data" method="POST">
+              <fieldset class="p-4">
+                <input name="email" class="form-control mb-3" type="email" placeholder="Email*" required>
 
-  <section class="section">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="about-img">
-            <img src="images/about/about.jpg" class="img-fluid w-100 rounded" alt="">
-          </div>
-        </div>
-        <div class="col-lg-6 pt-5 pt-lg-0">
-          <div class="about-content">
-            <h3 class="font-weight-bold">Introduction</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc est justo, aliquam nec tempor
-              fermentum, commodo et libero. Quisque et rutrum arcu. Vivamus dictum tincidunt magna id
-              euismod. Nam sollicitudin mi quis orci lobortis feugiat.</p>
-            <h3 class="font-weight-bold">How we can help</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc est justo, aliquam nec tempor
-              fermentum, commodo et libero. Quisque et rutrum arcu. Vivamus dictum tincidunt magna id
-              euismod. Nam sollicitudin mi quis orci lobortis feugiat. Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit. Nunc est justo, aliquam nec tempor fermentum, commodo et libero. Quisque et rutrum arcu. Vivamus dictum
-              tincidunt magna id euismod. Nam sollicitudin mi quis orci lobortis feugiat.</p>
+                <input name="nama_lengkap" class="form-control mb-3" type="text" placeholder="Nama lengkap*" required>
+
+                <input name="username" class="form-control mb-3" type="text" placeholder="Username*" required>
+
+                <input name="alamat" class="form-control mb-3" type="text" placeholder="Alamat*" required>
+
+                <input name="no_telpon" class="form-control mb-3" type="text" placeholder="No Telpon*" required>
+
+                <input name="password" class="form-control mb-3" type="password" placeholder="Password*" required>
+
+                <input name="foto" class="form-control mb-3" type="file" placeholder="Upload foto*" required>
+
+                <button name="submit" type="submit" class="btn btn-primary font-weight-bold mt-3">
+                  Register Now
+                </button>
+              </fieldset>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-  <section class="mb-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="heading text-center text-capitalize font-weight-bold py-5">
-            <h2>our team</h2>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card my-3 my-lg-0">
-            <img class="card-img-top" src="images/team/team1.jpg" class="img-fluid w-100" alt="Card image cap">
-            <div class="card-body bg-gray text-center">
-              <h5 class="card-title">John Doe</h5>
-              <p class="card-text">Founder / CEO</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card my-3 my-lg-0">
-            <img class="card-img-top" src="images/team/team2.jpg" class="img-fluid w-100" alt="Card image cap">
-            <div class="card-body bg-gray text-center">
-              <h5 class="card-title">John Doe</h5>
-              <p class="card-text">Founder / CEO</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card my-3 my-lg-0">
-            <img class="card-img-top" src="images/team/team3.jpg" class="img-fluid w-100" alt="Card image cap">
-            <div class="card-body bg-gray text-center">
-              <h5 class="card-title">John Doe</h5>
-              <p class="card-text">Founder / CEO</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card my-3 my-lg-0">
-            <img class="card-img-top" src="images/team/team4.jpg" class="img-fluid w-100" alt="Card image cap">
-            <div class="card-body bg-gray text-center">
-              <h5 class="card-title">John Doe</h5>
-              <p class="card-text">Founder / CEO</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section bg-gray">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3 col-sm-6 my-lg-0 my-3">
-          <div class="counter-content text-center bg-light py-4 rounded">
-            <i class="fa fa-smile-o d-block"></i>
-            <span class="counter my-2 d-block" data-count="2314">0</span>
-            <h5>Happy Customers</h5>
-            </script>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6 my-lg-0 my-3">
-          <div class="counter-content text-center bg-light py-4 rounded">
-            <i class="fa fa-user-o d-block"></i>
-            <span class="counter my-2 d-block" data-count="1013">0</span>
-            <h5>Active Members</h5>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6 my-lg-0 my-3">
-          <div class="counter-content text-center bg-light py-4 rounded">
-            <i class="fa fa-bookmark-o d-block"></i>
-            <span class="counter my-2 d-block" data-count="2413">0</span>
-            <h5>Verified Ads</h5>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6 my-lg-0 my-3">
-          <div class="counter-content text-center bg-light py-4 rounded">
-            <i class="fa fa-smile-o d-block"></i>
-            <span class="counter my-2 d-block" data-count="200">0</span>
-            <h5>Happy Customers</h5>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!--============================
 =            Footer            =
 =============================-->

@@ -1,3 +1,19 @@
+<?php
+
+session_start();
+if ($_SESSION['status_login'] != true) {
+  echo "
+    <script>
+      alert('Anda harus login terlebih dahulu');
+      window.location.href = 'login.php'
+    </script>
+  ";
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 
 <!--
@@ -75,7 +91,7 @@
               </ul>
               <ul class="navbar-nav ml-auto mt-10">
                 <li class="nav-item">
-                  <a class="nav-link login-button" href="login.html">Login</a>
+                  <a class="nav-link login-button" href="login.php">Login</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link text-white add-button" href="ad-listing.html"><i class="fa fa-plus-circle"></i> Add Listing</a>
@@ -104,7 +120,7 @@
                 <img src="images/user/user-thumb.jpg" alt="" class="rounded-circle">
               </div>
               <!-- User Name -->
-              <h5 class="text-center">Samanta Doe</h5>
+              <h5 class="text-center"><?= $_SESSION['nama_lengkap'] ?></h5>
               <p>Joined February 06, 2017</p>
               <a href="user-profile.html" class="btn btn-main-sm">Edit Profile</a>
             </div>
@@ -118,7 +134,7 @@
                     <span>12</span></a></li>
                 <li><a href="dashboard-pending-ads.html"><i class="fa fa-bolt"></i> Pending Approval<span>23</span></a>
                 </li>
-                <li><a href="index.html"><i class="fa fa-cog"></i> Logout</a></li>
+                <li><a href="logout.php"><i class="fa fa-cog"></i> Logout</a></li>
                 <li><a href="#!" data-toggle="modal" data-target="#deleteaccount"><i class="fa fa-power-off"></i>Delete Account</a></li>
               </ul>
             </div>
@@ -157,7 +173,7 @@
           <!-- Recently Favorited -->
           <div class="widget dashboard-container my-adslist">
             <h3 class="widget-header">My Ads</h3>
-            <table class="table table-responsive product-dashboard-table">
+            <table class="table table-responsive  product-dashboard-table">
               <thead>
                 <tr>
                   <th>Image</th>
@@ -167,180 +183,91 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="product-thumb">
-                    <img width="80px" height="auto" src="images/products/products-1.jpg" alt="image description">
-                  </td>
-                  <td class="product-details">
-                    <h3 class="title">Macbook Pro 15inch</h3>
-                    <span class="add-id"><strong>Ad ID:</strong> ng3D5hAMHPajQrM</span>
-                    <span><strong>Posted on: </strong><time>Jun 27, 2017</time> </span>
-                    <span class="status active"><strong>Status</strong>Active</span>
-                    <span class="location"><strong>Location</strong>Dhaka,Bangladesh</span>
-                  </td>
-                  <td class="product-category"><span class="categories">Laptops</span></td>
-                  <td class="action" data-title="Action">
-                    <div class="">
-                      <ul class="list-inline justify-content-center">
-                        <li class="list-inline-item">
-                          <a data-toggle="tooltip" data-placement="top" title="view" class="view" href="category.html">
-                            <i class="fa fa-eye"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a class="edit" data-toggle="tooltip" data-placement="top" title="Edit" href="dashboard.html">
-                            <i class="fa fa-pencil"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a class="delete" data-toggle="tooltip" data-placement="top" title="Delete" href="dashboard.html">
-                            <i class="fa fa-trash"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-
-                  <td class="product-thumb">
-                    <img width="80px" height="auto" src="images/products/products-2.jpg" alt="image description">
-                  </td>
-                  <td class="product-details">
-                    <h3 class="title">Study Table Combo</h3>
-                    <span class="add-id"><strong>Ad ID:</strong> ng3D5hAMHPajQrM</span>
-                    <span><strong>Posted on: </strong><time>Feb 12, 2017</time> </span>
-                    <span class="status active"><strong>Status</strong>Active</span>
-                    <span class="location"><strong>Location</strong>USA</span>
-                  </td>
-                  <td class="product-category"><span class="categories">Laptops</span></td>
-                  <td class="action" data-title="Action">
-                    <div class="">
-                      <ul class="list-inline justify-content-center">
-                        <li class="list-inline-item">
-                          <a data-toggle="tooltip" data-placement="top" title="View" class="view" href="category.html">
-                            <i class="fa fa-eye"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a class="edit" data-toggle="tooltip" data-placement="top" title="Edit" href="dashboard.html">
-                            <i class="fa fa-pencil"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a class="delete" data-toggle="tooltip" data-placement="top" title="Delete" href="dashboard.html">
-                            <i class="fa fa-trash"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="product-thumb">
-                    <img width="80px" height="auto" src="images/products/products-3.jpg" alt="image description">
-                  </td>
-                  <td class="product-details">
-                    <h3 class="title">Macbook Pro 15inch</h3>
-                    <span class="add-id"><strong>Ad ID:</strong> ng3D5hAMHPajQrM</span>
-                    <span><strong>Posted on: </strong><time>Jun 27, 2017</time> </span>
-                    <span class="status active"><strong>Status</strong>Active</span>
-                    <span class="location"><strong>Location</strong>Dhaka,Bangladesh</span>
-                  </td>
-                  <td class="product-category"><span class="categories">Laptops</span></td>
-                  <td class="action" data-title="Action">
-                    <div class="">
-                      <ul class="list-inline justify-content-center">
-                        <li class="list-inline-item">
-                          <a data-toggle="tooltip" data-placement="top" title="View" class="view" href="category.html">
-                            <i class="fa fa-eye"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a class="edit" data-toggle="tooltip" data-placement="top" title="Edit" href="dashboard.html">
-                            <i class="fa fa-pencil"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a class="delete" data-toggle="tooltip" data-placement="top" title="Delete" href="dashboard.html">
-                            <i class="fa fa-trash"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-
-                  <td class="product-thumb">
-                    <img width="80px" height="auto" src="images/products/products-4.jpg" alt="image description">
-                  </td>
-                  <td class="product-details">
-                    <h3 class="title">Macbook Pro 15inch</h3>
-                    <span class="add-id"><strong>Ad ID:</strong> ng3D5hAMHPajQrM</span>
-                    <span><strong>Posted on: </strong><time>Jun 27, 2017</time> </span>
-                    <span class="status active"><strong>Status</strong>Active</span>
-                    <span class="location"><strong>Location</strong>Dhaka,Bangladesh</span>
-                  </td>
-                  <td class="product-category"><span class="categories">Laptops</span></td>
-                  <td class="action" data-title="Action">
-                    <div class="">
-                      <ul class="list-inline justify-content-center">
-                        <li class="list-inline-item">
-                          <a data-toggle="tooltip" data-placement="top" title="View" class="view" href="category.html">
-                            <i class="fa fa-eye"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a class="edit" data-toggle="tooltip" data-placement="top" title="Edit" href="dashboard.html">
-                            <i class="fa fa-pencil"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a class="delete" data-toggle="tooltip" data-placement="top" title="Delete" href="dashboard.html">
-                            <i class="fa fa-trash"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-
-                  <td class="product-thumb">
-                    <img width="80px" height="auto" src="images/products/products-1.jpg" alt="image description">
-                  </td>
-                  <td class="product-details">
-                    <h3 class="title">Macbook Pro 15inch</h3>
-                    <span class="add-id"><strong>Ad ID:</strong> ng3D5hAMHPajQrM</span>
-                    <span><strong>Posted on: </strong><time>Jun 27, 2017</time> </span>
-                    <span class="status active"><strong>Status</strong>Active</span>
-                    <span class="location"><strong>Location</strong>Dhaka,Bangladesh</span>
-                  </td>
-                  <td class="product-category"><span class="categories">Laptops</span></td>
-                  <td class="action" data-title="Action">
-                    <div class="">
-                      <ul class="list-inline justify-content-center">
-                        <li class="list-inline-item">
-                          <a href="category.html" data-toggle="tooltip" data-placement="top" title="View" class="view">
-                            <i class="fa fa-eye"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a class="edit" data-toggle="tooltip" data-placement="top" title="Edit" href="dashboard.html">
-                            <i class="fa fa-pencil"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a class="delete" data-toggle="tooltip" data-placement="top" title="Delete" href="dashboard.html">
-                            <i class="fa fa-trash"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
+                <?php
+                $total_bayar = 0;
+                if (!empty($_SESSION['keranjang'])) :
+                  foreach ($_SESSION['keranjang'] as $i => $data) {
+                    $total_bayar = $total_bayar + ($data['harga'] * $data['jumlah']);
+                ?>
+                    <tr>
+                      <td class="product-thumb">
+                        <img width="80px" height="auto" src="../assets/upload/produk/<?= $data['gambar'] ?>" alt="image description">
+                      </td>
+                      <td class="product-details">
+                        <h3 class="title"><?= $data['nama_produk'] ?></h3>
+                        <span class="add-id"><strong>Jumlah :</strong> <?= $data['jumlah'] ?></span>
+                        <span class="add-id"><strong>Harga :</strong>Rp. <?= number_format($data['harga']) ?></span>
+                        <span><strong>Total harga: </strong><time>Rp. <?= number_format($data['harga'] * $data['jumlah']) ?></time> </span>
+                        <span class="status active"><strong>Status</strong><?= $data['status'] ?></span>
+                      </td>
+                      <td class="product-category"><span class="categories"><?= $data['kategori'] ?></span></td>
+                      <td class="action" data-title="Action">
+                        <form action="checkout.php" method="POST">
+                          <div class="">
+                            <ul class="list-inline justify-content-center">
+                              <li class="list-inline-item">
+                                <input type="hidden" name="id_produk" value="<?= $data['id_produk'] ?>">
+                                <button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus dari keranjang" type="submit" name="hapus_produk">
+                                  <i class="fa fa-trash"></i>
+                                </button>
+                              </li>
+                            </ul>
+                          </div>
+                        </form>
+                      </td>
+                    </tr>
+                  <?php } ?>
+                <?php else : ?>
+                  <tr>
+                    <td>Keranjang kosong</td>
+                  </tr>
+                <?php endif; ?>
               </tbody>
+              <tfoot>
+                <form action="checkout.php" method="POST">
+                  <tr>
+                    <td colspan="3">Tipe pembayaran</td>
+                    <td>
+                      <select name="tipe_bayar" id="" class="form-control">
+                        <option value="COD">COD (Cash On Delivery)</option>
+                        <option value="Transfer">Transfer</option>
+                        <option value="PayLater">PayLater</option>
+                        <option value="Credit">Credit</option>
+                      </select>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="3">Kode Pos</td>
+                    <td>
+                      <input type="number" name="kode_pos" id="" class="form-control">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="3">Alamat Pengiriman</td>
+                    <td>
+                      <input type="text" name="alamat_pengiriman" id="" class="form-control">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="2">Total Bayar</td>
+                    <td>Rp. <?= number_format($total_bayar) ?></td>
+                    <td>
+                      <div class="">
+                        <ul class="list-inline justify-content-center">
+                          <li class="list-inline-item">
+                            <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Checkout barang" type="submit" name="checkout_produk">
+                              <i class="fa fa-eye"></i>
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                </form>
+              </tfoot>
             </table>
 
           </div>

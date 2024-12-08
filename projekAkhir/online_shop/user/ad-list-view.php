@@ -74,7 +74,7 @@
               </ul>
               <ul class="navbar-nav ml-auto mt-10">
                 <li class="nav-item">
-                  <a class="nav-link login-button" href="login.html">Login</a>
+                  <a class="nav-link login-button" href="login.php">Login</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link text-white add-button" href="ad-listing.html"><i class="fa fa-plus-circle"></i> Add Listing</a>
@@ -234,186 +234,50 @@
           </div>
 
           <!-- ad listing list  -->
-          <div class="ad-listing-list mt-20">
-            <div class="row p-lg-3 p-sm-5 p-4">
-              <div class="col-lg-4 align-self-center">
-                <a href="single.html">
-                  <img src="images/products/products-1.jpg" class="img-fluid" alt="">
-                </a>
-              </div>
-              <div class="col-lg-8">
-                <div class="row">
-                  <div class="col-lg-6 col-md-10">
-                    <div class="ad-listing-content">
-                      <div>
-                        <a href="single.html" class="font-weight-bold">11inch Macbook Air</a>
+          <?php
+          include '../config/koneksi.php';
+
+          $sql = "SELECT a.*, b.nama_kategori as kategori FROM tb_produk as a JOIN tb_kategori as b ON a.id_kategori = b.id";
+          $hasil = mysqli_query($koneksi, $sql);
+          while ($row = mysqli_fetch_assoc($hasil)) {
+          ?>
+            <div class="ad-listing-list mt-20">
+              <div class="row p-lg-3 p-sm-5 p-4">
+                <div class="col-lg-4 align-self-center">
+                  <a href="single.php?id=<?= $row['id'] ?>">
+                    <img src="../assets/upload/produk/<?= $row['gambar'] ?>" class="img-fluid" alt="">
+                  </a>
+                </div>
+                <div class="col-lg-8">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-10">
+                      <div class="ad-listing-content">
+                        <div>
+                          <a href="single.php?id=<?= $row['id'] ?>" class="font-weight-bold"><?= $row['nama_produk'] ?></a>
+                        </div>
+                        <ul class="list-inline mt-2 mb-3">
+                          <li class="list-inline-item"><a href="category.html"> <i class="fa fa-folder-open-o"></i> <?= $row['kategori'] ?></a></li>
+                          <li class="list-inline-item"><a href="category.htm"><i class="fa fa-calendar"></i>26th December</a></li>
+                        </ul>
+                        <p class="pr-5"><?= $row['deskripsi'] ?></p>
                       </div>
-                      <ul class="list-inline mt-2 mb-3">
-                        <li class="list-inline-item"><a href="category.html"> <i class="fa fa-folder-open-o"></i> Electronics</a></li>
-                        <li class="list-inline-item"><a href="category.htm"><i class="fa fa-calendar"></i>26th December</a></li>
-                      </ul>
-                      <p class="pr-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, aliquam!</p>
                     </div>
-                  </div>
-                  <div class="col-lg-6 align-self-center">
-                    <div class="product-ratings float-lg-right pb-3">
-                      <ul class="list-inline">
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                      </ul>
+                    <div class="col-lg-6 align-self-center">
+                      <div class="product-ratings float-lg-right pb-3">
+                        <ul class="list-inline">
+                          <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="ad-listing-list mt-20">
-            <div class="row p-lg-3 p-sm-5 p-4">
-              <div class="col-lg-4 align-self-center">
-                <a href="single.html">
-                  <img src="images/products/products-2.jpg" class="img-fluid" alt="">
-                </a>
-              </div>
-              <div class="col-lg-8">
-                <div class="row">
-                  <div class="col-lg-6 col-md-10">
-                    <div class="ad-listing-content">
-                      <div>
-                        <a href="single.html" class="font-weight-bold">Study Table Combo</a>
-                      </div>
-                      <ul class="list-inline mt-2 mb-3">
-                        <li class="list-inline-item"><a href="category.html"> <i class="fa fa-folder-open-o"></i> Electronics</a></li>
-                        <li class="list-inline-item"><a href="category.htm"><i class="fa fa-calendar"></i>26th December</a></li>
-                      </ul>
-                      <p class="pr-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, aliquam!</p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 align-self-center">
-                    <div class="product-ratings float-lg-right pb-3">
-                      <ul class="list-inline">
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="ad-listing-list mt-20">
-            <div class="row p-lg-3 p-sm-5 p-4">
-              <div class="col-lg-4 align-self-center">
-                <a href="single.html">
-                  <img src="images/products/products-3.jpg" class="img-fluid" alt="">
-                </a>
-              </div>
-              <div class="col-lg-8">
-                <div class="row">
-                  <div class="col-lg-6 col-md-10">
-                    <div class="ad-listing-content">
-                      <div>
-                        <a href="single.html" class="font-weight-bold">11inch Macbook Air</a>
-                      </div>
-                      <ul class="list-inline mt-2 mb-3">
-                        <li class="list-inline-item"><a href="category.html"> <i class="fa fa-folder-open-o"></i> Electronics</a></li>
-                        <li class="list-inline-item"><a href="category.htm"><i class="fa fa-calendar"></i>26th December</a></li>
-                      </ul>
-                      <p class="pr-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, aliquam!</p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 align-self-center">
-                    <div class="product-ratings float-lg-right pb-3">
-                      <ul class="list-inline">
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="ad-listing-list mt-20">
-            <div class="row p-lg-3 p-sm-5 p-4">
-              <div class="col-lg-4 align-self-center">
-                <a href="single.html">
-                  <img src="images/products/products-4.jpg" class="img-fluid" alt="">
-                </a>
-              </div>
-              <div class="col-lg-8">
-                <div class="row">
-                  <div class="col-lg-6 col-md-10">
-                    <div class="ad-listing-content">
-                      <div>
-                        <a href="single.html" class="font-weight-bold">Study Table Combo</a>
-                      </div>
-                      <ul class="list-inline mt-2 mb-3">
-                        <li class="list-inline-item"><a href="category.html"> <i class="fa fa-folder-open-o"></i> Electronics</a></li>
-                        <li class="list-inline-item"><a href="category.htm"><i class="fa fa-calendar"></i>26th December</a></li>
-                      </ul>
-                      <p class="pr-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, aliquam!</p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 align-self-center">
-                    <div class="product-ratings float-lg-right pb-3">
-                      <ul class="list-inline">
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="ad-listing-list mt-20">
-            <div class="row p-lg-3 p-sm-5 p-4">
-              <div class="col-lg-4 align-self-center">
-                <a href="single.html">
-                  <img src="images/products/products-1.jpg" class="img-fluid" alt="">
-                </a>
-              </div>
-              <div class="col-lg-8">
-                <div class="row">
-                  <div class="col-lg-6 col-md-10">
-                    <div class="ad-listing-content">
-                      <div>
-                        <a href="single.html" class="font-weight-bold">11inch Macbook Air</a>
-                      </div>
-                      <ul class="list-inline mt-2 mb-3">
-                        <li class="list-inline-item"><a href="category.html"> <i class="fa fa-folder-open-o"></i> Electronics</a></li>
-                        <li class="list-inline-item"><a href="category.htm"><i class="fa fa-calendar"></i>26th December</a></li>
-                      </ul>
-                      <p class="pr-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, aliquam!</p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 align-self-center">
-                    <div class="product-ratings float-lg-right pb-3">
-                      <ul class="list-inline">
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <?php } ?>
           <!-- ad listing list  -->
 
           <!-- pagination -->
